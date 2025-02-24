@@ -50,7 +50,19 @@ body {
 
 hr {
   margin: 2rem 0;
-  border-top: 1px solid var(--text-color);
+  border-top: 2px solid var(--subtext-color);
+  /* background-image: linear-gradient( */
+  /*   to right, */
+  /*   var(--subtext-color) 25%, */
+  /*   25%, */
+  /*   transparent 75%, */
+  /*   75%, */
+  /*   var(--subtext-color) */
+  /* ); */
+  /* background-position: center top; */
+  /* background-repeat: repeat-x; */
+  /* background-size: 30px 1px; */
+  /* height: 1px; */
 }
 
 ul > li {
