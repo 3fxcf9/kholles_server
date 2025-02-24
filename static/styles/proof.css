@@ -1,0 +1,55 @@
+.not-found {
+    color: var(--red-color);
+    font-weight: bold;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+@media screen and (max-width: 700px) {
+    .title {
+        flex-direction: column;
+    }
+}
+
+.tags {
+    flex: 1;
+}
+
+.metadata {
+    margin-bottom: 1rem;
+}
+.authors {
+    list-style-type: none;
+    display: inline;
+}
+.authors li {
+    display: inline;
+    margin: 0;
+}
+.authors li:not(:last-of-type)::after {
+    content: ",";
+    margin-right: 0.5rem;
+}
+
+.date {
+    display: inline;
+    color: var(--subtext-color);
+}
+.date::after {
+    content: "—";
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+section.footnotes {
+    margin-top: 1.5rem;
+    h3 {
+        font-size: 1.2rem;
+    }
+    ol > li {
+        margin-top: 0;
+    }
+}

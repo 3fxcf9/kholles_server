@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week list</title>
+
+  <!-- math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+    integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+    integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" href="/static/styles/common.css">
+
+  <style>
+  .title_container {
+        display: flex;
+        justify-content: space-between;
+    }
+    li {
+        margin-bottom: 1rem;
+    }
+    ol>li>a {
+        display: block;
+        text-decoration: none;
+        .description {
+            text-decoration: underline;
+        }
+        .date {
+            color: var(--subtext-color);
+        }
+    }
+  </style>
+</head>
+
+<body>
+    <h1>Semaines</h1>
+    <ol>
+        {% for week in weeks %}
+        <li>
+            <a href="/week/{{ week.number }}">
+                <div class="title_container">
+                    <span class="description">{{ week.description }}</span>
+                    <span class="date">{{ week.date }}</span>
+                </div>
+
+                <ul class="tags">
+                    {% for tag in week.tags %}
+                        <li class="tag">tag</li>
+                    {% endfor %}
+                </ul>
+            </a>
+        </li>
+        {% endfor %}
+    </ol>
+
+    <script src="/static/math_rendering.js"></script>
+    <script src="/static/theme.js"></script>
+</body>
+
+</html>

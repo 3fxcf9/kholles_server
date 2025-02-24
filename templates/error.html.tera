@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" href="/static/styles/common.css">
+</head>
+
+<body>
+    <h1 style="color:red;">{{ title }}</h1>
+    {{ text }}
+
+    <script src="/static/theme.js"></script>
+</body>
+
+</html>
