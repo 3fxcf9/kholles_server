@@ -42,7 +42,18 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\prob": "\\mathbb{P}",
     "\\expect": "\\mathbb{E}",
     "\\variance": "\\mathbb{V}",
+    "\\Vect": "\\operatorname{Vect}",
   };
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "$", right: "$", display: false },
+      // { left: "\\(", right: "\\)", display: false },
+      // { left: "\\[", right: "\\]", display: true },
+    ],
+    throwOnError: false,
+  });
 
   document
     .querySelectorAll("code.math-inline, code.math-display")

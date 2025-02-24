@@ -1,4 +1,4 @@
-const themeCycle = ["latte", "frappe", "macchiato", "mocha"];
+const themeCycle = ["latte", "frappe", "macchiato", "mocha"].reverse();
 
 function setTheme(themeName) {
   document.body.classList = Array.from(document.body.classList)
@@ -25,6 +25,8 @@ toggleButton.style = `
   right: 2rem;
   z-index: 1000;
   cursor:pointer;
+  box-shadow: var(--bg-color) 0 0 15px 7px;
+  background-color: var(--bg-color);
   `;
 console.log(toggleButton);
 document.body.appendChild(toggleButton);

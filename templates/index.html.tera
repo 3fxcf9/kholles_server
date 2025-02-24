@@ -16,15 +16,17 @@
     integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
     crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" href="/static/styles/colors.css">
   <link rel="stylesheet" href="/static/styles/common.css">
 </head>
 
 <body>
-    {{ html | safe }}
+  {{ html | safe }}
 
-    <script src="/static/math_rendering.js"></script>
-    <script src="/static/theme.js"></script>
+  <script src="/static/math_rendering.js"></script>
+  <script src="/static/theme.js"></script>
 </body>
 
 </html>

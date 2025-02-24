@@ -6,7 +6,7 @@ use rocket::fs::FileServer;
 use rocket_dyn_templates::{context, Template};
 use serde::{Deserialize, Serialize};
 use serde_yaml;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::Path;
 
@@ -100,7 +100,10 @@ fn list_proofs(
     Ok(())
 }
 
-fn list_weeks(dir: &Path, weeks: &mut Vec<Week>) -> Result<(), CustomError> {
+fn list_weeks(
+    dir: &Path,
+    weeks: &mut HashMap<<Week as WeekTrait>::WeekNumberType, Week>,
+) -> Result<(), CustomError> {
     if dir.is_dir() {
         for entry in fs::read_dir(dir)? {
             let path = entry?.path();
@@ -110,7 +113,7 @@ fn list_weeks(dir: &Path, weeks: &mut Vec<Week>) -> Result<(), CustomError> {
                 let contents = fs::read_to_string(&path)?;
                 match serde_yaml::from_str::<Week>(&contents) {
                     Ok(week) => {
-                        weeks.push(week);
+                        weeks.insert(week.number, week);
                     }
                     Err(error) => {
                         return Err(CustomError::new(
@@ -126,7 +129,6 @@ fn list_weeks(dir: &Path, weeks: &mut Vec<Week>) -> Result<(), CustomError> {
             }
         }
     }
-    weeks.sort_by_key(|w| w.number);
     Ok(())
 }
 
@@ -177,13 +179,16 @@ fn proof_view_endpoint(pid: <Proof as ProofTrait>::ProofIdType) -> Result<Templa
 
 #[get("/week/list")]
 fn week_list_endpoint() -> Result<Template, CustomError> {
-    let mut weeks = vec![];
+    let mut weeks: HashMap<<Week as WeekTrait>::WeekNumberType, Week> = HashMap::new();
     list_weeks(Path::new("."), &mut weeks)?;
+
+    let mut week_list = weeks.values().map(|e| e.clone()).collect::<Vec<Week>>();
+    week_list.sort_by_key(|w| w.number);
 
     Ok(Template::render(
         "week-list",
         context! {
-            weeks: weeks.iter().map(|e| e.clone()).collect::<Vec<Week>>(),
+            weeks: week_list,
         },
     ))
 }
@@ -192,27 +197,37 @@ fn week_list_endpoint() -> Result<Template, CustomError> {
 fn week_view_endpoint(
     number: <Week as WeekTrait>::WeekNumberType,
 ) -> Result<Template, CustomError> {
-    let mut weeks = vec![];
+    let mut weeks: HashMap<<Week as WeekTrait>::WeekNumberType, Week> = HashMap::new();
     list_weeks(Path::new("."), &mut weeks)?;
     let mut proofs = HashMap::new();
     list_proofs(Path::new("."), &mut proofs)?;
 
-    if let Some(w) = weeks.get((number.max(1) - 1) as usize) {
+    if let Some(w) = weeks.get(&number) {
+        let mut authors = HashSet::new();
         let week_proofs: Vec<Option<Proof>> = w
             .proofs
             .iter()
             .map(|pid| match proofs.get(pid) {
-                Some(p) => Some(p.as_html_proof()),
+                Some(p) => {
+                    for author in p.authors.clone() {
+                        authors.insert(author);
+                    }
+
+                    return Some(p.as_html_proof());
+                }
                 None => None,
             })
             .collect();
-        // let week_proofs: Vec<Option<Proof>> = w.proofs.iter().map(|pid| proofs.get(pid)).collect();
+
+        let mut sorted_authors: Vec<String> = authors.into_iter().collect();
+        sorted_authors.sort_unstable();
 
         Ok(Template::render(
             "week-view",
             context! {
-                week:w,
+                week: w,
                 proofs: week_proofs,
+                authors: sorted_authors,
             },
         ))
     } else {

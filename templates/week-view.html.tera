@@ -16,56 +16,76 @@
     integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
     crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" href="/static/styles/colors.css">
   <link rel="stylesheet" href="/static/styles/common.css">
   <link rel="stylesheet" href="/static/styles/proof.css">
+
   <style>
-  .tags {
-      justify-content: right;
-  }
+    h2>a {
+      position: relative;
+    }
+
+    @media screen and (min-width: 700px) {
+      h2>a::before {
+        content: "#";
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        color: var(--subtext-color);
+        transition: all .2s ease;
+      }
+
+      h2>a:hover::before {
+        left: -2rem;
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
 <body>
-    <h1>Semaine {{ week.number }}</h1>
-    <p>{{ week.description }}</p>
-    <ul>
-        {% for proof in proofs %}
-            {% if proof.title %}
-                <div class="title">
-                    <h2>{{ proof.title }}</h2>
-                    <ul class="tags">
-                                        {% for tag in proof.tags %}
-                                        <li class="tag">
-                                            {{ tag }}
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                </div>
+  <h1>Semaine {{ week.number }}</h1>
+  <p>{{ week.description }}</p>
+  <ul class="authors">
+    {% for author in authors %}
+    <li>
+      {{ author }}
+    </li>
+    {% endfor %}
+  </ul>
 
-                <div class="metadata">
-                    <div class="date">{{ proof.date }}</div>
-                    <ul class="authors">
-                        {% for author in proof.authors %}
-                        <li>
-                            {{ author }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+  <ul>
+    {% for proof in proofs %}
+    {% if proof.title %}
+    <h2><a href="/proof/{{ proof.pid }}">{{ proof.title }}</a></h2>
 
-                {{ proof.content | safe }}
-
-            {% else %}
-            <div class="title">
-                <h2 class="not-found">Proof not found</h2>
-            </div>
-            {% endif %}
+    <div class="details">
+      <ul class="tags">
+        {% for tag in proof.tags %}
+        <li class="tag">
+          {{ tag }}
+        </li>
         {% endfor %}
-    </ul>
+      </ul>
 
-    <script src="/static/math_rendering.js"></script>
-    <script src="/static/theme.js"></script>
+      <div class="date">{{ proof.date }}</div>
+    </div>
+
+    {{ proof.content | safe }}
+
+    {% else %}
+    <div class="title">
+      <h2 class="not-found">Preuve non trouvée</h2>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  <script src="/static/math_rendering.js"></script>
+  <script src="/static/theme.js"></script>
 </body>
 
 </html>

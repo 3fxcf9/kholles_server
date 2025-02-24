@@ -16,51 +16,59 @@
     integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
     crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" href="/static/styles/colors.css">
   <link rel="stylesheet" href="/static/styles/common.css">
   <style>
-  .title_container {
-          display: flex;
-          justify-content: space-between;
+    .title_container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    li {
+      margin-bottom: 1rem;
+    }
+
+    ul>li>a {
+      display: block;
+      text-decoration: none;
+
+      .title {
+        text-decoration: underline;
       }
-      li {
-          margin-bottom: 1rem;
+
+      .date {
+        color: var(--subtext-color);
       }
-      ul>li>a {
-          display: block;
-          text-decoration: none;
-          .title {
-              text-decoration: underline;
-          }
-          .date {
-              color: var(--subtext-color);
-          }
-      }
+
+    }
   </style>
 </head>
 
 <body>
-    <h1>Proof list</h1>
-    <ul class="proof-list">
-        {% for proof in proofs %}
-        <li>
-            <a href="/proof/{{ proof.pid }}">
-                <div class="title_container">
-                    <span class="title">{{ proof.title }}</span>
-                    <span class="date">{{ proof.date }}</span>
-                </div>
+  <h1>Proof list</h1>
+  <ul class="proof-list">
+    {% for proof in proofs %}
+    <li>
+      <a href="/proof/{{ proof.pid }}">
+        <div class="title_container">
+          <span class="title">{{ proof.title }}</span>
+          <span class="date">{{ proof.date }}</span>
+        </div>
 
-                <ul class="tags">
-                    {% for tag in proof.tags %}
-                        <li class="tag">tag</li>
-                    {% endfor %}
-                </ul>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+        <ul class="tags">
+          {% for tag in proof.tags %}
+          <li class="tag">tag</li>
+          {% endfor %}
+        </ul>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
 
-    <script src="/static/math_rendering.js"></script>
-    <script src="/static/theme.js"></script>
+  <script src="/static/math_rendering.js"></script>
+  <script src="/static/theme.js"></script>
 </body>
+
 </html>

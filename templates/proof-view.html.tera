@@ -16,35 +16,37 @@
     integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
     crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+  <link rel="stylesheet" href="/static/styles/colors.css">
   <link rel="stylesheet" href="/static/styles/common.css">
   <link rel="stylesheet" href="/static/styles/proof.css">
   <style>
-  .tags {
+    .tags {
       margin-bottom: 1rem;
-  }
+    }
   </style>
 </head>
 
 <body>
-    <h1>{{ proof.title }}</h2>
+  <h1>{{ proof.title }}</h2>
     <ul class="tags">
-        {% for tag in proof.tags %}
-        <li class="tag">
-            {{ tag }}
-        </li>
-        {% endfor %}
+      {% for tag in proof.tags %}
+      <li class="tag">
+        {{ tag }}
+      </li>
+      {% endfor %}
     </ul>
 
     <div class="metadata">
-        <div class="date">{{ proof.date }}</div>
-        <ul class="authors">
-            {% for author in proof.authors %}
-            <li>
-                {{ author }}
-            </li>
-            {% endfor %}
-        </ul>
+      <div class="date">{{ proof.date }}</div>
+      <ul class="authors">
+        {% for author in proof.authors %}
+        <li>
+          {{ author }}
+        </li>
+        {% endfor %}
+      </ul>
     </div>
 
     {{ html | safe }}
