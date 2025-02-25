@@ -1,14 +1,15 @@
 use crate::error::{CustomError, ErrorType};
 use crate::types::*;
+
+use crate::LISTEN_PATH_ENV_NAME;
+use crate::PROOF_SUBFOLDER_NAME;
+use crate::WEEK_SUBFOLDER_NAME;
+
 use gray_matter::{engine::YAML, Matter};
 use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::Path;
-
-const LISTEN_PATH_ENV_NAME: &str = "FS_LISTEN_PATH";
-const PROOF_SUBFOLDER_NAME: &str = "proofs";
-const WEEK_SUBFOLDER_NAME: &str = "weeks";
 
 fn list_proofs(
     dir: &Path,

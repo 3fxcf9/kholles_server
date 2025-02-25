@@ -1,6 +1,8 @@
 use kholles_server::error::{CustomError, ErrorType};
+
 use kholles_server::list_fs::{get_proof_list, get_week_list};
 use kholles_server::types::*;
+use kholles_server::webhook;
 
 use rocket::fs::FileServer;
 use rocket_dyn_templates::{context, Template};
@@ -121,6 +123,7 @@ fn rocket() -> _ {
                 proof_view_endpoint,
                 week_list_endpoint,
                 week_view_endpoint,
+                webhook::handle_webhook
             ],
         )
         .mount("/static", FileServer::from("static"))
