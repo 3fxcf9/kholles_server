@@ -96,9 +96,9 @@ fn run_git_pull() -> () {
         Ok(out) => {
             let stdout = String::from_utf8_lossy(&out.stdout);
             let stderr = String::from_utf8_lossy(&out.stderr);
-            println!("Git Pull Output:\n{}", stdout);
+            println!("Git pull STDOUT:\n{}", stdout);
             if !stderr.is_empty() {
-                eprintln!("Git Pull Error:\n{}", stderr);
+                eprintln!("Git pull STDERR:\n{}", stderr);
             }
         }
         Err(err) => {

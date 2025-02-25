@@ -17,6 +17,12 @@ RUN --mount=type=cache,target=/build/target \
 
 FROM docker.io/debian:bookworm-slim
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      git \
+      ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && git config --global --add safe.directory /app/content
+
 WORKDIR /app
 
 COPY --from=build /build/main ./
@@ -24,9 +30,5 @@ COPY --from=build /build/main ./
 COPY --from=build /build/Rocket.toml .
 COPY --from=build /build/static ./static
 COPY --from=build /build/templates ./templates
-
-ENV ROCKET_ADDRESS=0.0.0.0
-ENV ROCKET_PORT=3680
-ENV FS_LISTEN_PATH=content
 
 CMD ./main
