@@ -51,9 +51,7 @@
   <p>{{ week.description }}</p>
   <ul class="authors">
     {% for author in authors %}
-    <li>
-      {{ author }}
-    </li>
+    <li>{{ author }}</li>
     {% endfor %}
   </ul>
 

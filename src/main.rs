@@ -1,136 +1,13 @@
-use gray_matter::engine::YAML;
-use gray_matter::Matter;
 use kholles_server::error::{CustomError, ErrorType};
-use kholles_server::md_to_html::md_to_html;
+use kholles_server::list_fs::{get_proof_list, get_week_list};
+use kholles_server::types::*;
+
 use rocket::fs::FileServer;
 use rocket_dyn_templates::{context, Template};
-use serde::{Deserialize, Serialize};
-use serde_yaml;
-use std::collections::{HashMap, HashSet};
-use std::fs;
-use std::path::Path;
+use std::collections::HashSet;
 
 #[macro_use]
 extern crate rocket;
-
-#[derive(Serialize, Deserialize, Debug, Eq, Hash, PartialEq, Clone)]
-struct Proof {
-    pid: <Self as ProofTrait>::ProofIdType,
-    title: String,
-    authors: Vec<String>,
-    date: String, // TODO: Change
-    tags: Vec<String>,
-    #[serde(skip_deserializing)]
-    content: String,
-}
-
-trait ProofTrait {
-    type ProofIdType;
-}
-
-impl ProofTrait for Proof {
-    type ProofIdType = u32;
-}
-
-impl Proof {
-    fn as_html_proof(&self) -> Proof {
-        Proof {
-            content: md_to_html(self.content.as_str()),
-            ..self.clone()
-        }
-    }
-}
-
-impl Proof {
-    fn get_html(&self) -> String {
-        md_to_html(self.content.as_str())
-    }
-}
-
-trait WeekTrait {
-    type WeekNumberType;
-}
-
-impl WeekTrait for Week {
-    type WeekNumberType = u8;
-}
-
-#[derive(Serialize, Deserialize, Debug, Eq, Hash, PartialEq, Clone)]
-struct Week {
-    number: <Self as WeekTrait>::WeekNumberType,
-    date: String, // TODO: Change
-    description: String,
-    tags: Vec<String>,
-    proofs: Vec<<Proof as ProofTrait>::ProofIdType>,
-}
-
-fn list_proofs(
-    dir: &Path,
-    files: &mut HashMap<<Proof as ProofTrait>::ProofIdType, Proof>,
-) -> Result<(), CustomError> {
-    if dir.is_dir() {
-        for entry in fs::read_dir(dir)? {
-            let path = entry?.path();
-            if path.is_dir() {
-                list_proofs(&path, files)?;
-            } else if path.extension().and_then(|s| s.to_str()) == Some("md") {
-                let contents = fs::read_to_string(&path)?;
-                let result = Matter::<YAML>::new().parse(&contents);
-                let proof = result.data.unwrap().deserialize::<Proof>();
-                match proof {
-                    Err(error) => {
-                        return Err(CustomError::new(
-                            ErrorType::ServerError,
-                            format!("Error at file {}: {}", path.to_str().unwrap(), error),
-                        ));
-                    }
-                    Ok(p) => {
-                        files.insert(
-                            p.pid,
-                            Proof {
-                                content: result.content,
-                                ..p
-                            },
-                        );
-                    }
-                }
-            }
-        }
-    }
-    Ok(())
-}
-
-fn list_weeks(
-    dir: &Path,
-    weeks: &mut HashMap<<Week as WeekTrait>::WeekNumberType, Week>,
-) -> Result<(), CustomError> {
-    if dir.is_dir() {
-        for entry in fs::read_dir(dir)? {
-            let path = entry?.path();
-            if path.is_dir() {
-                list_weeks(&path, weeks)?;
-            } else if path.extension().and_then(|s| s.to_str()) == Some("yaml") {
-                let contents = fs::read_to_string(&path)?;
-                match serde_yaml::from_str::<Week>(&contents) {
-                    Ok(week) => {
-                        weeks.insert(week.number, week);
-                    }
-                    Err(error) => {
-                        return Err(CustomError::new(
-                            ErrorType::ServerError,
-                            format!(
-                                "Error parsing yaml file {}: {}",
-                                path.to_str().unwrap(),
-                                error
-                            ),
-                        ));
-                    }
-                }
-            }
-        }
-    }
-    Ok(())
-}
 
 #[get("/")]
 fn index_endpoint() -> Result<Template, CustomError> {
@@ -145,8 +22,7 @@ fn index_endpoint() -> Result<Template, CustomError> {
 
 #[get("/proof/list")]
 fn proof_list_endpoint() -> Result<Template, CustomError> {
-    let mut files = HashMap::new();
-    list_proofs(Path::new("."), &mut files)?;
+    let files = get_proof_list()?;
 
     Ok(Template::render(
         "proof-list",
@@ -158,8 +34,7 @@ fn proof_list_endpoint() -> Result<Template, CustomError> {
 
 #[get("/proof/<pid>")]
 fn proof_view_endpoint(pid: <Proof as ProofTrait>::ProofIdType) -> Result<Template, CustomError> {
-    let mut proofs = HashMap::new();
-    list_proofs(Path::new("."), &mut proofs)?;
+    let proofs = get_proof_list()?;
 
     if let Some(p) = proofs.get(&pid) {
         Ok(Template::render(
@@ -179,8 +54,7 @@ fn proof_view_endpoint(pid: <Proof as ProofTrait>::ProofIdType) -> Result<Templa
 
 #[get("/week/list")]
 fn week_list_endpoint() -> Result<Template, CustomError> {
-    let mut weeks: HashMap<<Week as WeekTrait>::WeekNumberType, Week> = HashMap::new();
-    list_weeks(Path::new("."), &mut weeks)?;
+    let weeks = get_week_list()?;
 
     let mut week_list = weeks.values().map(|e| e.clone()).collect::<Vec<Week>>();
     week_list.sort_by_key(|w| w.number);
@@ -197,10 +71,8 @@ fn week_list_endpoint() -> Result<Template, CustomError> {
 fn week_view_endpoint(
     number: <Week as WeekTrait>::WeekNumberType,
 ) -> Result<Template, CustomError> {
-    let mut weeks: HashMap<<Week as WeekTrait>::WeekNumberType, Week> = HashMap::new();
-    list_weeks(Path::new("."), &mut weeks)?;
-    let mut proofs = HashMap::new();
-    list_proofs(Path::new("."), &mut proofs)?;
+    let weeks = get_week_list()?;
+    let proofs = get_proof_list()?;
 
     if let Some(w) = weeks.get(&number) {
         let mut authors = HashSet::new();

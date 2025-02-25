@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  kholles_server:
+    image: kholles_server
+    container_name: kholles_server
+    volumes:
+      - ./content:/app/content
+    ports:
+      - "3680:3680"
+    restart: "unless-stopped"

@@ -50,7 +50,7 @@ h2 {
 
 .authors li:not(:last-of-type)::after {
   content: ",";
-  margin-right: 0.5rem;
+  margin-right: 0.2rem;
 }
 
 .date {
