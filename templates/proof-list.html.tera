@@ -24,6 +24,7 @@
     .title_container {
       display: flex;
       justify-content: space-between;
+      gap: 1rem;
     }
 
     li {
@@ -47,7 +48,8 @@
 </head>
 
 <body>
-  <h1>Proof list</h1>
+  <h1>Liste des démonstrations</h1>
+  <p>{{ proofs | length }} preuves</p>
   <ul class="proof-list">
     {% for proof in proofs %}
     <li>
@@ -59,7 +61,7 @@
 
         <ul class="tags">
           {% for tag in proof.tags %}
-          <li class="tag">tag</li>
+          <li class="tag">{{ tag }}</li>
           {% endfor %}
         </ul>
       </a>

@@ -13,13 +13,7 @@ extern crate rocket;
 
 #[get("/")]
 fn index_endpoint() -> Result<Template, CustomError> {
-    Ok(Template::render(
-        "index",
-        context! {
-            title: "My Rocket Website",
-            html: "WIP"
-        },
-    ))
+    Ok(Template::render("index", context! {}))
 }
 
 #[get("/proof/list")]

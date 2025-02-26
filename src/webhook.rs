@@ -1,4 +1,5 @@
 use crate::webhook_error::WebhookError;
+use crate::GITHUB_WEBHOOK_SECRET_NAME;
 
 use hex::encode;
 use hmac::{Hmac, Mac};
@@ -113,7 +114,8 @@ pub async fn handle_webhook(
     sig: HeaderSignature<'_>,
     data: Data<'_>,
 ) -> Result<Json<String>, WebhookError> {
-    let secret = env::var("GITHUB_WEBHOOK_SECRET").expect("GITHUB_WEBHOOK_SECRET is not set");
+    let secret = env::var(GITHUB_WEBHOOK_SECRET_NAME)
+        .expect(format!("{GITHUB_WEBHOOK_SECRET_NAME} is not set").as_str());
 
     let mut body = String::new();
     if let Err(_) = data

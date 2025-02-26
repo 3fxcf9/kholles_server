@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
+  <title>Démos de khôlles MP1 Fermat</title>
 
   <!-- math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
@@ -23,7 +23,12 @@
 </head>
 
 <body>
-  {{ html | safe }}
+  <h1>Démos de khôlles MP1 Fermat</h1>
+
+  <ul>
+    <li><a href="/week/list">Liste des semaines</a></li>
+    <li><a href="/proof/list">Liste des démonstrations</a></li>
+  </ul>
 
   <script src="/static/math_rendering.js"></script>
   <script src="/static/theme.js"></script>
