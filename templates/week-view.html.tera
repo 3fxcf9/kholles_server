@@ -58,7 +58,7 @@
   <ul>
     {% for proof in proofs %}
     {% if proof.title %}
-    <h2><a href="/proof/{{ proof.pid }}">{{ proof.title }}</a></h2>
+    <h2><a href="/proof/{{ proof.pid }}">{{loop.index}}. {{ proof.title }}</a></h2>
 
     <div class="details">
       <ul class="tags">

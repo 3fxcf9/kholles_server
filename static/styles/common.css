@@ -48,6 +48,10 @@ body {
   }
 }
 
+.authors {
+  text-align: left;
+}
+
 hr {
   margin: 2rem 0;
   border-top: 2px solid var(--subtext-color);

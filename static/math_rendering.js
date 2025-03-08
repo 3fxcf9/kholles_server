@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\U": "\\mathbb{U}",
     "\\P": "\\mathbb{P}",
     "\\K": "\\mathbb{K}",
+    "\\L": "\\mathscr{L}",
+    "\\GL": "\\mathscr{GL}",
     "\\Func": "\\mathcal{F}",
     "\\Cont": "\\mathcal{C}",
     "\\Diff": "\\mathcal{D}",
@@ -43,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\expect": "\\mathbb{E}",
     "\\variance": "\\mathbb{V}",
     "\\Vect": "\\operatorname{Vect}",
+    "\\Ker": "\\operatorname{Ker}",
+    "\\Imf": "\\operatorname{Im}",
+    "\\Id": "\\operatorname{Id}",
   };
 
   renderMathInElement(document.body, {
