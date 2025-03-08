@@ -1,0 +1,16 @@
+#theme-selector {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  cursor: pointer;
+  box-shadow: var(--bg-color) 0 0 15px 7px;
+  background-color: var(--bg-color);
+  line-height: 0;
+}
+
+@media print {
+  #theme-selector {
+    display: none !important;
+  }
+}

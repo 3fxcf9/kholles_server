@@ -20,39 +20,64 @@
     href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
   <link rel="stylesheet" href="/static/styles/colors.css">
   <link rel="stylesheet" href="/static/styles/common.css">
-  <link rel="stylesheet" href="/static/styles/proof.css">
   <style>
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
     .tags {
       margin-bottom: 1rem;
+    }
+
+    .metadata {
+      margin-bottom: 2rem;
+    }
+
+    .metadata .date {
+      display: inline;
+      color: var(--subtext-color);
+    }
+
+    .metadata .date::after {
+      content: "—";
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+
+    @media print {
+      .tags {
+        display: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>{{ proof.title }}</h2>
-    <ul class="tags">
-      {% for tag in proof.tags %}
-      <li class="tag">
-        {{ tag }}
+  <h1>{{ proof.title }}</h1>
+
+  <ul class="tags">
+    {% for tag in proof.tags %}
+    <li class="tag">
+      {{ tag }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="metadata">
+    <div class="date">{{ proof.date }}</div>
+    <ul class="authors">
+      {% for author in proof.authors %}
+      <li>
+        {{ author }}
       </li>
       {% endfor %}
     </ul>
+  </div>
 
-    <div class="metadata">
-      <div class="date">{{ proof.date }}</div>
-      <ul class="authors">
-        {% for author in proof.authors %}
-        <li>
-          {{ author }}
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+  {{ html | safe }}
 
-    {{ html | safe }}
-
-    <script src="/static/math_rendering.js"></script>
-    <script src="/static/theme.js"></script>
+  <script src="/static/math_rendering.js"></script>
+  <script src="/static/theme.js"></script>
 </body>
 
 </html>

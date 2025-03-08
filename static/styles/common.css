@@ -6,8 +6,25 @@
   box-sizing: border-box;
 }
 
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
 html {
   font-size: 140%;
+}
+
+@media print {
+  html,
+  body {
+    width: 170mm;
+    height: 257mm;
+  }
+
+  body {
+    font-size: 3.8mm;
+  }
 }
 
 h1 {
@@ -18,19 +35,8 @@ a {
   color: var(--links-color);
 }
 
-.katex {
-  font-size: 1em;
-}
-
-.katex-display {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
 body {
   padding: 10vh 20vw;
-  text-align: justify;
-  line-height: 200%;
   color: var(--text-color);
   background-color: var(--bg-color);
   font-family: "Computer Modern Serif";
@@ -44,51 +50,31 @@ body {
 
 @media screen and (max-width: 700px) {
   body {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1rem;
   }
 }
 
+@media print {
+  body {
+    padding: 0 !important;
+  }
+}
+
+/* Authors */
 .authors {
+  list-style-type: none;
+  display: inline;
   text-align: left;
 }
 
-hr {
-  margin: 2rem 0;
-  border-top: 2px solid var(--subtext-color);
-  /* background-image: linear-gradient( */
-  /*   to right, */
-  /*   var(--subtext-color) 25%, */
-  /*   25%, */
-  /*   transparent 75%, */
-  /*   75%, */
-  /*   var(--subtext-color) */
-  /* ); */
-  /* background-position: center top; */
-  /* background-repeat: repeat-x; */
-  /* background-size: 30px 1px; */
-  /* height: 1px; */
+.authors li {
+  display: inline;
+  margin: 0;
 }
 
-ul > li {
-  list-style-type: "▷  ";
-}
-
-ul > li > ul > li {
-  list-style-type: "★  ";
-}
-
-ul > li > ul > li > ul > li {
-  list-style-type: "−  ";
-}
-
-ul > li::marker {
-  font-size: 0.8rem;
-}
-
-ul > li,
-ol > li {
-  margin-left: 2rem;
-  margin-top: 1rem;
+.authors li:not(:last-of-type)::after {
+  content: ",";
+  margin-right: 0.2rem;
 }
 
 /* Tags */
@@ -109,4 +95,112 @@ ul > li.tag {
   border-radius: 1em;
   white-space: nowrap;
   line-height: 100%;
+}
+
+/* Markdown */
+p {
+  line-height: 200%;
+}
+
+@media screen and (min-width: 1000px) {
+  p {
+    text-align: justify;
+  }
+}
+
+blockquote {
+  border-left: 2px solid var(--subtext-color);
+  padding-left: 1rem;
+}
+
+section.footnotes {
+  margin-top: 1.5rem;
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  ol > li {
+    margin-top: 0;
+  }
+}
+
+hr {
+  margin: 2rem 0;
+  border-top: 2px solid var(--subtext-color);
+  /* background-image: linear-gradient( */
+  /*   to right, */
+  /*   var(--subtext-color) 25%, */
+  /*   25%, */
+  /*   transparent 75%, */
+  /*   75%, */
+  /*   var(--subtext-color) */
+  /* ); */
+  /* background-position: center top; */
+  /* background-repeat: repeat-x; */
+  /* background-size: 30px 1px; */
+  /* height: 1px; */
+}
+
+/* Lists */
+ul > li {
+  list-style-type: "▷  ";
+}
+
+ul > li > ul > li {
+  list-style-type: "★  ";
+}
+
+ul > li > ul > li > ul > li {
+  list-style-type: "−  ";
+}
+
+ol > li {
+  counter-increment: olist;
+}
+
+ol > li::marker {
+  content: "(" counter(olist, lower-roman) ") ";
+}
+
+ul > li::marker {
+  font-size: 0.8rem;
+}
+
+@media print {
+  ul > li::marker {
+    font-size: 0.5rem;
+  }
+}
+
+ul > li,
+ol > li {
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 1000px) {
+  ul > li,
+  ol > li {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ul > li,
+  ol > li {
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+/* Maths */
+.katex {
+  font-size: 1em;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
 }

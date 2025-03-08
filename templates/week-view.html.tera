@@ -23,6 +23,50 @@
   <link rel="stylesheet" href="/static/styles/proof.css">
 
   <style>
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .week-description {
+      line-height: 100%;
+      margin-bottom: 1rem;
+    }
+
+
+    h2 {
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+
+      break-after: avoid;
+      break-inside: avoid;
+
+      a {
+        color: var(--text-color);
+        text-decoration: initial;
+      }
+    }
+
+    .not-found {
+      color: var(--red-color);
+      font-weight: bold;
+    }
+
+    .metadata {
+      margin-bottom: 1rem;
+    }
+
+    .metadata .date {
+      display: inline;
+      color: var(--subtext-color);
+    }
+
+    .metadata .date::after {
+      content: "—";
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+
+    /* Link indicator */
     h2>a {
       position: relative;
     }
@@ -43,47 +87,65 @@
         opacity: 1;
       }
     }
+
+
+    @media print {
+
+      h1,
+      .week-description,
+      .metadata {
+        text-align: center;
+      }
+
+      h1 {
+        border: 1px solid var(--text-color);
+      }
+
+      h2:first-of-type {
+        margin-top: 1rem;
+      }
+
+      /* Avoid page-breaks after title */
+      h2::after {
+        content: "";
+        display: block;
+        height: 150px;
+        margin-bottom: -150px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <h1>Semaine {{ week.number }}</h1>
-  <p>{{ week.description }}</p>
-  <ul class="authors">
-    {% for author in authors %}
-    <li>{{ author }}</li>
-    {% endfor %}
-  </ul>
 
-  <ul>
-    {% for proof in proofs %}
-    {% if proof.title %}
-    <h2><a href="/proof/{{ proof.pid }}">{{loop.index}}. {{ proof.title }}</a></h2>
+  <p class="week-description">{{ week.description }}</p>
 
-    <div class="details">
-      <ul class="tags">
-        {% for tag in proof.tags %}
-        <li class="tag">
-          {{ tag }}
-        </li>
-        {% endfor %}
-      </ul>
+  <div class="metadata">
+    <div class="date">{{ week.date }}</div>
+    <ul class="authors">
+      {% for author in authors %}
+      <li>
+        {{ author }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 
-      <div class="date">{{ proof.date }}</div>
-    </div>
+  {% for proof in proofs %}
+  {% if proof.title %}
+  <h2><a href="/proof/{{ proof.pid }}">{{loop.index}}. {{ proof.title }}</a></h2>
 
-    {{ proof.content | safe }}
+  {{ proof.content | safe }}
 
-    {% else %}
-    <div class="title">
-      <h2 class="not-found">Preuve non trouvée</h2>
-    </div>
-    {% endif %}
-    {% endfor %}
-  </ul>
+  {% else %}
+  <h2 class="not-found">Preuve non trouvée</h2>
+  {% endif %}
+  {% endfor %}
 
   <script src="/static/math_rendering.js"></script>
   <script src="/static/theme.js"></script>
+  <script src="/static/print.js"></script>
 </body>
 
 </html>
