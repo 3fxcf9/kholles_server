@@ -155,14 +155,6 @@ ul > li > ul > li > ul > li {
   list-style-type: "−  ";
 }
 
-ol > li {
-  counter-increment: olist;
-}
-
-ol > li::marker {
-  content: "(" counter(olist, lower-roman) ") ";
-}
-
 ul > li::marker {
   font-size: 0.8rem;
 }

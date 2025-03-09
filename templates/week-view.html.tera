@@ -66,6 +66,15 @@
       margin-right: 1em;
     }
 
+    /* Lists */
+    ol>li {
+      counter-increment: olist;
+    }
+
+    ol>li::marker {
+      content: "(" counter(olist, lower-roman) ") ";
+    }
+
     /* Link indicator */
     h2>a {
       position: relative;
