@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\Ker": "\\operatorname{Ker}",
     "\\Imf": "\\operatorname{Im}",
     "\\Id": "\\operatorname{Id}",
+    "\\rg": "\\operatorname{rg}",
   };
 
   renderMathInElement(document.body, {
