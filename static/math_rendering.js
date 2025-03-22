@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\P": "\\mathbb{P}",
     "\\K": "\\mathbb{K}",
     "\\L": "\\mathscr{L}",
+    "\\B": "\\mathscr{B}",
+    "\\M": "\\mathcal{M}",
     "\\GL": "\\mathscr{GL}",
+    "\\GLM": "\\mathrm{GL}",
     "\\Func": "\\mathcal{F}",
     "\\Cont": "\\mathcal{C}",
     "\\Diff": "\\mathcal{D}",
@@ -49,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\Imf": "\\operatorname{Im}",
     "\\Id": "\\operatorname{Id}",
     "\\rg": "\\operatorname{rg}",
+    "\\mat": "\\operatorname{mat}",
   };
 
   renderMathInElement(document.body, {
