@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\R": "\\mathbb{R}",
     "\\C": "\\mathbb{C}",
     "\\U": "\\mathbb{U}",
-    "\\P": "\\mathbb{P}",
+    "\\P": "\\mathcal{P}",
     "\\K": "\\mathbb{K}",
     "\\L": "\\mathscr{L}",
     "\\B": "\\mathscr{B}",
@@ -49,10 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\variance": "\\mathbb{V}",
     "\\Vect": "\\operatorname{Vect}",
     "\\Ker": "\\operatorname{Ker}",
-    "\\Imf": "\\operatorname{Im}",
+    "\\Img": "\\operatorname{Im}",
     "\\Id": "\\operatorname{Id}",
     "\\rg": "\\operatorname{rg}",
     "\\mat": "\\operatorname{mat}",
+    "\\tr": "\\operatorname{tr}",
+    "\\mtx": "\\begin{pmatrix}#1\\end{pmatrix}",
+    "\\transp": "^{\\mkern-1.5mu\\mathsf{T}}",
+    // "\\transp": "^{\\top}",
   };
 
   renderMathInElement(document.body, {

@@ -1,0 +1,8 @@
+- Direct access to most recent week
+- Remove week tags
+- Search
+- Filter by tags
+- Reverse order weeklist
+- Edit on github link
+- Script to create week / proof
+- Remove week number metadata and use filename
