@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\R": "\\mathbb{R}",
     "\\C": "\\mathbb{C}",
     "\\U": "\\mathbb{U}",
+    "\\F": "\\mathbb{F}",
     "\\P": "\\mathcal{P}",
     "\\K": "\\mathbb{K}",
     "\\L": "\\mathscr{L}",
@@ -56,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\tr": "\\operatorname{tr}",
     "\\mtx": "\\begin{pmatrix}#1\\end{pmatrix}",
     "\\transp": "^{\\mkern-1.5mu\\mathsf{T}}",
+    "\\tilde": "\\widetilde",
+    "\\applic":
+      "\\begin{array}{rcl}#1 & \\longrightarrow & #2 \\\\ #3 & \\longmapsto & #4\\end{array}",
     // "\\transp": "^{\\top}",
   };
 
