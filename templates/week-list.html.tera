@@ -58,12 +58,6 @@
           <span class="description">{{ week.description }}</span>
           <span class="date">{{ week.date }}</span>
         </div>
-
-        <ul class="tags">
-          {% for tag in week.tags %}
-          <li class="tag">{{ tag }}</li>
-          {% endfor %}
-        </ul>
       </a>
     </li>
     {% endfor %}

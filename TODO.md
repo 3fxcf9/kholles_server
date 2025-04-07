@@ -1,5 +1,4 @@
 - Direct access to most recent week
-- Remove week tags
 - Search
 - Filter by tags
 - Reverse order weeklist

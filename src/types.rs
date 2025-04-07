@@ -48,6 +48,5 @@ pub struct Week {
     pub number: <Self as WeekTrait>::WeekNumberType,
     pub date: String, // TODO: Change
     pub description: String,
-    pub tags: Vec<String>,
     pub proofs: Vec<<Proof as ProofTrait>::ProofIdType>,
 }
