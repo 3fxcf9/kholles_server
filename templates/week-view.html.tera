@@ -46,6 +46,10 @@
       }
     }
 
+    .toc {
+      margin-top: 3rem;
+    }
+
     .not-found {
       color: var(--red-color);
       font-weight: bold;
@@ -71,7 +75,7 @@
       counter-increment: olist;
     }
 
-    ol>li::marker {
+    ol:not(.toc)>li::marker {
       content: "(" counter(olist, lower-roman) ") ";
     }
 
@@ -121,6 +125,10 @@
         height: 150px;
         margin-bottom: -150px;
       }
+
+      .toc {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -141,9 +149,20 @@
     </ul>
   </div>
 
+  <ol class="toc">
+    {% for proof in proofs %}
+    {% if proof.title %}
+    <li value="{{ loop.index }}"><a href="#{{ proof.pid }}">{{ proof.title }}</a></li>
+    {% else %}
+    <h2 class="not-found">Preuve non trouvée</h2>
+    {% endif %}
+    {% endfor %}
+  </ol>
+
+
   {% for proof in proofs %}
   {% if proof.title %}
-  <h2><a href="/proof/{{ proof.pid }}">{{loop.index}}. {{ proof.title }}</a></h2>
+  <h2 id="{{ proof.pid }}"><a href="/proof/{{ proof.pid }}">{{ loop.index }}. {{ proof.title }}</a></h2>
 
   {{ proof.content | safe }}
 

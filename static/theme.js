@@ -33,3 +33,13 @@ link.type = "text/css";
 link.rel = "stylesheet";
 
 document.getElementsByTagName("head")[0].appendChild(link);
+
+// Set bright theme when printing
+let beforeprint_theme = undefined;
+window.addEventListener("beforeprint", (_) => {
+  beforeprint_theme = localStorage.getItem("theme");
+  setTheme("latte");
+});
+window.addEventListener("afterprint", (_) => {
+  setTheme(beforeprint_theme || themeCycle[0]);
+});
