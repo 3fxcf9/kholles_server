@@ -4,4 +4,3 @@
 - Reverse order weeklist
 - Edit on github link
 - Script to create week / proof
-- Remove week number metadata and use filename

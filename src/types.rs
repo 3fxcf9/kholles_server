@@ -45,6 +45,7 @@ impl WeekTrait for Week {
 
 #[derive(Serialize, Deserialize, Debug, Eq, Hash, PartialEq, Clone)]
 pub struct Week {
+    #[serde(skip_deserializing)]
     pub number: <Self as WeekTrait>::WeekNumberType,
     pub date: String, // TODO: Change
     pub description: String,

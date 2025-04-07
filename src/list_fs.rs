@@ -60,7 +60,31 @@ fn list_weeks(
                 let contents = fs::read_to_string(&path)?;
                 match serde_yaml::from_str::<Week>(&contents) {
                     Ok(week) => {
-                        weeks.insert(week.number, week);
+                        // convert it to the appropriate type (files are named 01.yaml, ..., x.yaml)
+                        let number = path
+                            .file_stem()
+                            .ok_or_else(|| {
+                                CustomError::new(
+                                    ErrorType::ServerError,
+                                    format!("Failed to extract filename from path: {:?}", path),
+                                )
+                            })?
+                            .to_str()
+                            .ok_or_else(|| {
+                                CustomError::new(
+                                    ErrorType::ServerError,
+                                    format!("Filename contains invalid UTF-8: {:?}", path),
+                                )
+                            })?
+                            .parse()
+                            .map_err(|_| {
+                                CustomError::new(
+                                    ErrorType::ServerError,
+                                    format!("Invalid week number in filename"),
+                                )
+                            })?;
+
+                        weeks.insert(number, Week { number, ..week });
                     }
                     Err(error) => {
                         return Err(CustomError::new(
