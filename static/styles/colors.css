@@ -34,3 +34,15 @@ body.theme-latte {
   --tags-color: #04a5e5;
   --links-color: #04a5e5;
 }
+
+/* Printing theme */
+@media print {
+  body {
+    --bg-color: white;
+    --text-color: black;
+    --subtext-color: #7c7f93;
+    --red-color: #e64553;
+    --tags-color: #04a5e5;
+    --links-color: #04a5e5;
+  }
+}
