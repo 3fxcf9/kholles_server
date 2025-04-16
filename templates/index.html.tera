@@ -26,6 +26,7 @@
   <h1>Démos de khôlles MP1 Fermat</h1>
 
   <ul>
+    <li><a href="/week/newest">Dernière semaine</a></li>
     <li><a href="/week/list">Liste des semaines</a></li>
     <li><a href="/proof/list">Liste des démonstrations</a></li>
   </ul>

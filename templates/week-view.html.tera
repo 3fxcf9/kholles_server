@@ -154,7 +154,7 @@
     {% if proof.title %}
     <li value="{{ loop.index }}"><a href="#{{ proof.pid }}">{{ proof.title }}</a></li>
     {% else %}
-    <h2 class="not-found">Preuve non trouvée</h2>
+    <li value="{{ loop.index }}"><span class="not-found">Preuve non trouvée</span></li>
     {% endif %}
     {% endfor %}
   </ol>

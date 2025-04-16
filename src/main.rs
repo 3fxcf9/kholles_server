@@ -63,6 +63,49 @@ fn week_list_endpoint() -> Result<Template, CustomError> {
     ))
 }
 
+#[get("/week/newest")]
+fn week_newest_endpoint() -> Result<Template, CustomError> {
+    let weeks = get_week_list()?;
+
+    let mut week_list = weeks.values().map(|e| e.clone()).collect::<Vec<Week>>();
+    let newest = week_list
+        .iter()
+        .max_by_key(|w| w.number)
+        .ok_or(CustomError::new(
+            ErrorType::ServerError,
+            "Could’nt find proof".to_string(),
+        ))?;
+
+    let proofs = get_proof_list()?;
+    let mut authors = HashSet::new();
+    let week_proofs: Vec<Option<Proof>> = newest
+        .proofs
+        .iter()
+        .map(|pid| match proofs.get(pid) {
+            Some(p) => {
+                for author in p.authors.clone() {
+                    authors.insert(author);
+                }
+
+                return Some(p.as_html_proof());
+            }
+            None => None,
+        })
+        .collect();
+
+    let mut sorted_authors: Vec<String> = authors.into_iter().collect();
+    sorted_authors.sort_unstable();
+
+    Ok(Template::render(
+        "week-view",
+        context! {
+            week: newest,
+            proofs: week_proofs,
+            authors: sorted_authors,
+        },
+    ))
+}
+
 #[get("/week/<number>")]
 fn week_view_endpoint(
     number: <Week as WeekTrait>::WeekNumberType,
@@ -117,6 +160,7 @@ fn rocket() -> _ {
                 proof_view_endpoint,
                 week_list_endpoint,
                 week_view_endpoint,
+                week_newest_endpoint,
                 webhook::handle_webhook
             ],
         )
