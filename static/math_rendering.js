@@ -15,8 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\L": "\\mathscr{L}",
     "\\B": "\\mathscr{B}",
     "\\M": "\\mathcal{M}",
+    "\\E": "\\mathscr{E}",
     "\\GL": "\\mathscr{GL}",
     "\\GLM": "\\mathrm{GL}",
+    "\\CM": "\\mathscr{CM}",
     "\\Func": "\\mathcal{F}",
     "\\Cont": "\\mathcal{C}",
     "\\Diff": "\\mathcal{D}",
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\norm": "\\left\\lVert#1\\right\\rVert",
     "\\prop": "\\mathcal{P}",
     "\\mathquote": "\\frquote{\\text{#1}}",
-    "\\arrowlim": "\\ \\xrightarrow[\\;#1 \\to #2\\;]{}\\ ",
+    "\\arrowlim": "\\;\\xrightarrow[#1]{}\\;",
     "\\textlim": "\\lim\\limits_{#1}",
     "\\eps": "\\varepsilon",
     "\\ph": "\\varphi",
@@ -58,6 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\tilde": "\\widetilde",
     "\\applic":
       "\\begin{array}{rcl}#1 & \\longrightarrow & #2 \\\\ #3 & \\longmapsto & #4\\end{array}",
+    "\\abs": "\\left|#1\\right|",
+    "\\infabs": "\\left\\lVert#1\\right\\rVert_{\\infty, #2}",
+    "\\oo": "\\left]#1\\right[",
+    "\\oc": "\\left]#1\\right]",
+    "\\co": "\\left[#1\\right[",
+    "\\cc": "\\left[#1\\right]",
+    "\\where": "\\;\\middle\\vert\\;",
     // "\\transp": "^{\\top}",
   };
 
