@@ -196,3 +196,21 @@ ol > li {
   overflow-x: auto;
   overflow-y: hidden;
 }
+
+.tikz-figure {
+  break-inside: avoid;
+}
+
+.tikz-figure > div {
+  margin: 1rem auto;
+}
+
+body:not(.theme-latte) .tikz-figure svg {
+  filter: invert(1);
+}
+
+@media print {
+  body .tikz-figure svg {
+    filter: none !important;
+  }
+}

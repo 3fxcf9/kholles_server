@@ -80,24 +80,28 @@ document.addEventListener("DOMContentLoaded", function () {
     throwOnError: false,
   });
 
-  document
-    .querySelectorAll("code.math-inline, code.math-display")
-    .forEach((element) => {
-      let math = element.textContent;
-      // Create a new element for rendering
-      const renderElement = document.createElement(
-        element.classList.contains("math-display") ? "div" : "span",
-      );
-      // Replace the code element with the new element
-      element.parentNode.replaceChild(renderElement, element);
-      try {
-        katex.render(math, renderElement, {
-          displayMode: element.classList.contains("math-display"),
-          throwOnError: false,
-          macros: macros,
-        });
-      } catch (e) {
-        console.error("KaTeX rendering error:", e);
-      }
-    });
+  document.querySelectorAll("span[data-math-style]").forEach((element) => {
+    const math = element.textContent;
+    const style = element.getAttribute("data-math-style"); // "inline" or "display"
+
+    const renderElement = document.createElement(
+      style === "display" ? "div" : "span",
+    );
+
+    if (element.classList.length) {
+      renderElement.classList.add(...element.classList);
+    }
+
+    element.replaceWith(renderElement);
+
+    try {
+      katex.render(math, renderElement, {
+        displayMode: style === "display",
+        throwOnError: false,
+        macros: macros,
+      });
+    } catch (err) {
+      console.error("KaTeX rendering error:", err);
+    }
+  });
 });
