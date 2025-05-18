@@ -10,11 +10,11 @@ The goal of this project is to display proofs organized by weeks, using data fro
 
 2. Clone the compatible data repository into the `FS_LISTEN_PATH` directory (set to `content` by default):
 
-```bash
-git clone https://github.com/3fxcf9/kholles_content content
-```
+   ```bash
+   git clone https://github.com/3fxcf9/kholles_content content
+   ```
 
-This repository will serve as the data source for the website.
+   This repository will serve as the data source for the website.
 
 3. Set up a GitHub webhook to trigger on push events. Use the server's address with the `/events/push` path to trigger an update whenever new content is pushed to the data repository.
 
