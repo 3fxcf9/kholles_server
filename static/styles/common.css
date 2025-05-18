@@ -143,6 +143,10 @@ hr {
 }
 
 /* Lists */
+ul,
+ol {
+  margin-bottom: 1rem;
+}
 ul > li {
   list-style-type: "▷  ";
 }

@@ -9,8 +9,6 @@ gray_matter = "0.2.8"
 hex = "0.4.3"
 hmac = "0.12.1"
 html-escape = "0.2.13"
-markdown = "1.0.0-alpha.21"
-regex = "1.11.1"
 rocket = { version = "0.5.1", features = ["json"] }
 rocket_dyn_templates = { version = "0.1.0-rc.3", features = ["tera"] }
 serde = "1.0.217"
