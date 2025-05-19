@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\ioo": "\\rrbracket #1 \\llbracket",
     "\\ioc": "\\rrbracket #1 \\rrbracket",
     "\\ico": "\\llbracket #1 \\llbracket",
-    "\\icc": "\\rrbracket #1 \\llbracket",
+    "\\icc": "\\llbracket #1 \\rrbracket",
     "\\where": "\\;\\middle\\vert\\;",
     "\\usim": "\\underset{#1}{\\sim}",
     // "\\transp": "^{\\top}",
