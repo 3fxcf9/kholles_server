@@ -61,7 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\applic":
       "\\begin{array}{rcl}#1 & \\longrightarrow & #2 \\\\ #3 & \\longmapsto & #4\\end{array}",
     "\\abs": "\\left|#1\\right|",
+    "\\scalar": "\\left\\langle #1 \\middle\\vert #2 \\right\\rangle",
     "\\infabs": "\\left\\lVert#1\\right\\rVert_{\\infty, #2}",
+    "\\norm": "\\left\\lVert#1\\right\\rVert",
     "\\oo": "\\left]#1\\right[",
     "\\oc": "\\left]#1\\right]",
     "\\co": "\\left[#1\\right[",
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "\\icc": "\\llbracket #1 \\rrbracket",
     "\\where": "\\;\\middle\\vert\\;",
     "\\usim": "\\underset{#1}{\\sim}",
+    "\\ortho": "^{\\perp}",
     // "\\transp": "^{\\top}",
   };
 
