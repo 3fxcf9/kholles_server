@@ -4,6 +4,7 @@ body {
   --text-color: #cdd6f4;
   --subtext-color: #45475a;
   --red-color: #f38ba8;
+  --yellow-color: #f9e2af;
   --tags-color: #89b4fa;
   --links-color: #89b4fa;
 }
@@ -13,6 +14,7 @@ body.theme-macchiato {
   --text-color: #cad3f5;
   --subtext-color: #494d64;
   --red-color: #ed8796;
+  --yellow-color: #eed49f;
   --tags-color: #8aadf4;
   --links-color: #8aadf4;
 }
@@ -22,6 +24,7 @@ body.theme-frappe {
   --text-color: #c6d0f5;
   --subtext-color: #51576d;
   --red-color: #e78284;
+  --yellow-color: #e5c890;
   --tags-color: #8caaee;
   --links-color: #8caaee;
 }
@@ -31,6 +34,7 @@ body.theme-latte {
   --text-color: #181926;
   --subtext-color: #7c7f93;
   --red-color: #e64553;
+  --yellow-color: #df8e1d;
   --tags-color: #04a5e5;
   --links-color: #04a5e5;
 }
@@ -42,6 +46,7 @@ body.theme-latte {
     --text-color: black;
     --subtext-color: #7c7f93;
     --red-color: #e64553;
+    --yellow-color: #df8e1d;
     --tags-color: #04a5e5;
     --links-color: #04a5e5;
   }

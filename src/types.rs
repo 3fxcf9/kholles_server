@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct Proof {
     pub pid: <Self as ProofTrait>::ProofIdType,
     pub title: String,
+    pub note: Option<String>,
     pub authors: Vec<String>,
     pub date: String, // TODO: Change
     pub tags: Vec<String>,

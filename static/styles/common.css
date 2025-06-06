@@ -142,6 +142,13 @@ hr {
   /* height: 1px; */
 }
 
+.proof-note {
+  font-size: smaller;
+  font-style: italic;
+  font-weight: initial;
+  color: var(--yellow-color);
+}
+
 /* Lists */
 ul,
 ol {

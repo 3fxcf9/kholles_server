@@ -166,7 +166,8 @@
 
   {% for proof in proofs %}
   {% if proof.title %}
-  <h2 id="{{ proof.pid }}"><a href="/proof/{{ proof.pid }}">{{ loop.index }}. {{ proof.title }}</a></h2>
+  <h2 id="{{ proof.pid }}"><a href="/proof/{{ proof.pid }}">{{ loop.index }}. {{ proof.title }}</a>{% if proof.note %} —
+    <span class="proof-note">{{ proof.note }}</span>{% endif %}</h2>
 
   {{ proof.content | safe }}
 
