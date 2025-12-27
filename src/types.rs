@@ -1,5 +1,6 @@
 use crate::md_to_html::md_to_html;
-use serde::{Deserialize, Serialize};
+use chrono::NaiveDate;
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 #[derive(Serialize, Deserialize, Debug, Eq, Hash, PartialEq, Clone)]
 pub struct Proof {
@@ -7,7 +8,9 @@ pub struct Proof {
     pub title: String,
     pub note: Option<String>,
     pub authors: Vec<String>,
-    pub date: String, // TODO: Change
+    #[serde(deserialize_with = "deserialize_date")]
+    #[serde(serialize_with = "serialize_date")]
+    pub date: NaiveDate,
     pub tags: Vec<String>,
     #[serde(skip_deserializing)]
     pub content: String,
@@ -18,7 +21,20 @@ pub trait ProofTrait {
 }
 
 impl ProofTrait for Proof {
-    type ProofIdType = u32;
+    type ProofIdType = u64;
+}
+
+impl Ord for Proof {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        // Reverse cmp for easier sorting (we want the newest first)
+        (other.date, other.pid).cmp(&(self.date, self.pid))
+    }
+}
+
+impl PartialOrd for Proof {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
 }
 
 impl Proof {
@@ -48,7 +64,24 @@ impl WeekTrait for Week {
 pub struct Week {
     #[serde(skip_deserializing)]
     pub number: <Self as WeekTrait>::WeekNumberType,
-    pub date: String, // TODO: Change
+    #[serde(deserialize_with = "deserialize_date")]
+    #[serde(serialize_with = "serialize_date")]
+    pub date: NaiveDate,
     pub description: String,
     pub proofs: Vec<<Proof as ProofTrait>::ProofIdType>,
+}
+
+fn deserialize_date<'de, D>(deserializer: D) -> Result<NaiveDate, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    NaiveDate::parse_from_str(&String::deserialize(deserializer)?, "%d/%m/%Y")
+        .map_err(serde::de::Error::custom)
+}
+
+fn serialize_date<S>(date: &NaiveDate, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    serializer.serialize_str(&date.format("%d/%m/%Y").to_string())
 }

@@ -106,7 +106,7 @@ fn list_weeks(
 pub fn get_proof_list() -> Result<HashMap<<Proof as ProofTrait>::ProofIdType, Proof>, CustomError> {
     let mut files = HashMap::new();
     list_proofs(
-        Path::new(&env::var(LISTEN_PATH_ENV_NAME).unwrap_or(".".to_string()))
+        Path::new(&env::var(LISTEN_PATH_ENV_NAME).unwrap_or("content".to_string()))
             .join(PROOF_SUBFOLDER_NAME)
             .as_path(),
         &mut files,
@@ -116,7 +116,7 @@ pub fn get_proof_list() -> Result<HashMap<<Proof as ProofTrait>::ProofIdType, Pr
 pub fn get_week_list() -> Result<HashMap<<Week as WeekTrait>::WeekNumberType, Week>, CustomError> {
     let mut weeks = HashMap::new();
     list_weeks(
-        Path::new(&env::var(LISTEN_PATH_ENV_NAME).unwrap_or(".".to_string()))
+        Path::new(&env::var(LISTEN_PATH_ENV_NAME).unwrap_or("content".to_string()))
             .join(WEEK_SUBFOLDER_NAME)
             .as_path(),
         &mut weeks,
